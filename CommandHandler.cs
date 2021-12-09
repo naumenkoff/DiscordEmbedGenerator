@@ -3,10 +3,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 
-namespace Discord
+namespace DiscordEmbedGenerator
 {
     public class CommandHandler
     {
@@ -103,11 +104,11 @@ namespace Discord
 
                     if (twoWeeksMessage == 0)
                     {
-                        await ((SocketTextChannel)Context.Channel).DeleteMessagesAsync(lastMessages);
+                        await ((SocketTextChannel) Context.Channel).DeleteMessagesAsync(lastMessages);
                     }
                     else
                     {
-                        await ((SocketTextChannel)Context.Channel).DeleteMessagesAsync(
+                        await ((SocketTextChannel) Context.Channel).DeleteMessagesAsync(
                             lastMessages.Take(twoWeeksMessage));
                         messages = await Context.Channel.GetMessagesAsync(num + 1 - twoWeeksMessage).FlattenAsync();
                         foreach (var msg in messages)
@@ -125,12 +126,9 @@ namespace Discord
                     var sb = new StringBuilder();
                     sb.Append("Роли у которых есть права администратора: ");
                     foreach (var x in Context.Client.Guilds)
-                    {
-                        foreach (var i in x.Roles)
-                        {
-                            if (i.Permissions.Administrator) sb.Append(i.Name + ", ");
-                        }
-                    }
+                    foreach (var i in x.Roles)
+                        if (i.Permissions.Administrator)
+                            sb.Append(i.Name + ", ");
 
                     var result = sb.ToString();
                     await Context.Channel.SendMessageAsync(result.Remove(result.Length - 2));

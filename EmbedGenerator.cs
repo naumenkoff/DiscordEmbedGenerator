@@ -19,10 +19,7 @@ namespace DiscordEmbedGenerator
                     if (parsed && color is >= 0 and <= 255) colors.Add(color);
                 }
 
-                if (colors.Count == 3)
-                {
-                    embed.WithColor(colors[0], colors[1], colors[2]);
-                }
+                if (colors.Count == 3) embed.WithColor(colors[0], colors[1], colors[2]);
                 //else
                 //{
                 //    await Context.Channel.SendMessageAsync(
