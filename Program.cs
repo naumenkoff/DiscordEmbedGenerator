@@ -8,15 +8,15 @@ namespace DiscordEmbedGenerator
 {
     public class Program
     {
-        private const string Token = "Enter your token here";
+        private const string Token = "enter your bot token here";
         private DiscordSocketClient _discordSocketClient;
 
         private static void Main()
         {
-            new Program().OnBotStartup().GetAwaiter().GetResult();
+            new Program().OnBotLoaded().GetAwaiter().GetResult();
         }
 
-        private async Task OnBotStartup()
+        private async Task OnBotLoaded()
         {
             _discordSocketClient = new DiscordSocketClient();
             var config = new CommandServiceConfig {DefaultRunMode = RunMode.Async};
